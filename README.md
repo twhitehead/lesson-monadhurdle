@@ -581,7 +581,7 @@ The monad design pattern encapsulates the plumbing of threading the state throug
 pointed instances attaches a given value to the state.  This allows standard (non-`IO`) values to be used in `IO`
 contexts.
 
-```
+```haskell
 instance Pointed IO where
   pure :: a -> IO a = a -> RealWorld -> (a, RealWorld)
   pure x s = (x,s)
@@ -590,7 +590,7 @@ instance Pointed IO where
 The functor instance arranges for a function to be applied to the result of a stateful operation.  This allows
 standard functions (non-`IO`) to be used in `IO` contexts.
 
-```
+```haskell
 instance Functor IO where
   fmap :: (a -> b) -> IO a -> IO b = (a -> b) -> (RealWorld -> (a, RealWorld)) -> RealWorld -> (b, RealWorld)
   fmap ab sas s1 = (b,s2)  -- Return b along with the new state
@@ -602,9 +602,9 @@ instance Functor IO where
 The applicative instance combines two stateful operations in order by taking the output state of the first and
 feeding it into the second.  This allows stateful operations to be sequenced.
 
-```
+```haskell
 instance Applicative IO where
-  pair :: IO a -> IO b -> IO (a,b) = (RealWorld -> (a, RealWorld)) -> (RealWorld -> (b, RealWorld)) -> RealWorld -> ((a,b), RealWorld)
+  pair :: IO a -> IO b -> IO (a,b) -- (RealWorld -> (a, RealWorld)) -> (RealWorld -> (b, RealWorld)) -> RealWorld -> ((a,b), RealWorld)
   pair ia ib s1 = ((a,b), s3)  -- Return a and b along with the final state
     where
       (a,s2) = ia s1             -- Use input state to get a and the next state
@@ -614,9 +614,9 @@ instance Applicative IO where
 The monad instance feeds the output state of a computation into the results of the computation itself.  This allows
 the next stateful computation to be computed by the current stateful computation.
 
-```
+```haskell
 instance Monad IO where
-  join :: IO (IO a) -> IO a = (RealWorld -> (RealWorld -> (a, RealWorld), RealWorld) -> RealWorld -> (a, RealWorld)
+  join :: IO (IO a) -> IO a -- (RealWorld -> (RealWorld -> (a, RealWorld), RealWorld) -> RealWorld -> (a, RealWorld)
   join iia s1 = (a,s3)  -- Return a along with the final state
     where
       (ia,s2) = iia s1    -- Use input state to get inner IO action along with the next state
@@ -625,15 +625,15 @@ instance Monad IO where
 
 Returning to our earlier example we had
 
-```
+```haskell
 computation :: IO ()
 computation = input >>= output
 ```
 
 which, after a lot of tedious substition of the prior defintions, gives
 
-```
-computation :: IO () = RealWorld -> ((), RealWorld)
+```haskell
+computation :: IO () -- RealWorld -> ((), RealWorld)
 computation s1 = ((),s3)
   where
     (x ,s2) = input s1
