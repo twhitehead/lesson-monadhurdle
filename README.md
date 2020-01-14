@@ -19,17 +19,9 @@ the technicalities.
 
 # Introduction
 
-Monads are a programming design pattern that has been linked to the abstract field of mathematics known as category
-theory since the early 90s.  One of it's first significant use came as way to reconcile I/O with lazy evaluation in
-the programming language Haskell around about the same time.  Over the ensuing years it has proven to be quite
-useful.  Wikipedia states that there are now monad formulations available for at least Scheme, Perl, Python,
-Racket, Clojure, Scala, F#, and possibly even the newest ML standard.
-
-The purpose of this talk is to introduce monads from a working programmers perspective.  The goal is that everyone
-will leave the talk with some new ideas/connections to think about.  It is not important that everything will make
-sense.  Each time you dive into monads you can learn a little more.  I personally am still learning too.  I have a
-lot better understanding than I did when I first started looking into them over twelve years ago, but there is still
-plent I do not know.  Especially when it comes to the category theoretic side.
+I would like to start by saying it isn't important that everything makes immediate sense.  Each time you dive into
+monads, you learn a little more.  I now have a lot better understanding than I did when I first started over twelve
+years ago, but I'm still learning too, especially when it comes to the category theoretic side.
 
 Over the years since their introduction, it has been realized that the monad structure can actually be broken out
 into several layers, where each new layer builds upon the previous.  These layers are
