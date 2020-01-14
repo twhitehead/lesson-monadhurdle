@@ -38,9 +38,9 @@ Applicative:
 Monad:
  ~ values + functions + products + layers
 
-This is much like an object hierarchy in a object orientated language.  Each layer adds functionality to the
-previous layer.  Each layer also has less inhabitants though as the increased functionality corresponds to
-increased requirements on the objects providing that functionality, so there are fewer of them.
+This is much like an object hierarchy in a object orientated language.  Later layers build on and add functionality
+to prior layer.  Each later layer also has less inhabitants as the increased functionality corresponds to increased
+requirements on the objects providing that functionality, resulting in there being fewer of them.
 
 
 # Functions
